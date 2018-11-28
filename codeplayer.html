@@ -1,0 +1,117 @@
+<html>
+<head>
+    
+<title>Code Player</title>
+   <script src="jquery-3.2.1.min.js"></script>
+    </head>
+<style>
+    #header {
+        width :1350px;
+        height:35px;
+        background-color : #eeeeee;
+        position:relative;
+        top:-5px;
+        font-family: helvetica;
+    }
+    .menubuttons {
+        
+        float:left;
+        padding : 7px 7px 7px 7px;
+        border : 1px grey solid;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius :4px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        position :relative;
+        top : -40px;
+          
+    }
+    
+    #html {
+        
+        margin-left :570px;
+    }
+    
+    .active{
+        
+        background-color : #f5f9ff;
+    }
+    
+    .highlight{
+        background-color : grey;
+        
+    }
+    textarea {
+       
+       resize :none;
+            
+    }
+    
+    .panel{
+        
+        width :35%;
+        height :95%;
+        float:left;
+        position: relative;
+        top: -40px;
+    }
+    
+    #clear{
+        
+        clear:both;
+    }
+    
+    </style>
+<body>
+    <div id= "header">
+    <h3>&nbsp;AJ CodePlayer</h3>
+    </div>
+    
+     
+        <div class = "menubuttons active" id="html">HTML</div>
+        
+        <div class = "menubuttons" id="css">CSS</div>
+        
+        <div class = "menubuttons" id="javascript">Javascript</div>
+        
+        <div class = "menubuttons active" id="output">Output</div>
+        
+    <div id="clear"></div>
+    <textarea class="panel" id="htmlPanel"><p id="paragraph">Hello Coder!!!</p></textarea>    
+    <textarea class="panel" id="cssPanel">p{ color : blue;}</textarea>  
+    <textarea class="panel" id="javascriptPanel">document.getElementById("paragraph").innerHTML="Good Morning !!!!"</textarea>  
+    <iframe class = "panel" id = "outputPanel">Hello Coder!!!</iframe>
+    
+    <script>
+        
+      $(".menubuttons").hover(function(){
+          $(this).addClass("highlight");
+          }, function(){
+          $(this).removeClass("highlight");
+         });
+    
+      $(".menubuttons").click(function(){
+          
+         $(this).toggleClass("active");
+          $(this).removeClass("highlight");
+          var panelId = $(this).attr("id")+"Panel";
+          $("#" + panelId).toggle();
+          
+      });
+  
+        
+        $(".panel").height($(window).height()-$("#header").height()-10);
+        $(".panel").width($(window).width()/4 -15);
+        $("iframe").contents().find("html").html($("#htmlPanel").val());
+        
+        $("textarea").on('change keyup paste', function() {
+         $("iframe").contents().find("html").html( "<html><head><style>"+$("#cssPanel").val()+"</style></head><body>"+$("#htmlPanel").val()+"</body></html>");
+        document.getElementById("outputPanel").contentWindow.eval($("#javascriptPanel").val());        
+        });
+    
+    </script>
+
+    </body>
+
+
+</html>
